@@ -1,6 +1,6 @@
 variables:
   Horton.FrameworkRoot: $(Agent.BuildDirectory)/e2e-fx
-  Horton.FrameworkRef: node-gate-1
+  Horton.FrameworkRef: refs/tags/node-gate-1
   Horton.Language: node
   Horton.Repo: Azure/azure-iot-sdk-node
   Horton.Commit: $(Build.SourceBranch)
@@ -11,7 +11,7 @@ resources:
   - repository: e2e_fx
     type: github
     name: Azure/iot-sdks-e2e-fx
-    ref: node-gate-1
+    ref: refs/tags/node-gate-1
     endpoint: 'e2e-fx-github-access'
 
 jobs:
