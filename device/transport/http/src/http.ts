@@ -212,6 +212,11 @@ export class Http extends EventEmitter implements DeviceTransport {
             httpHeaders['iothub-contentencoding'] = message.contentEncoding;
           }
 
+          if (message.label) {
+            /*Codes_SRS_NODE_DEVICE_HTTP_16_038: [If the `message` object has a `label` property, the value of the property shall be inserted in the headers of the HTTP request with the key `Iothub-Label`.]*/
+            httpHeaders['IoTHub-Label'] = message.label;
+          }
+
           /*Codes_SRS_NODE_DEVICE_HTTP_16_013: [If using x509 authentication the `Authorization` header shall not be set and the x509 parameters shall instead be passed to the underlying transpoort.]*/
           const request = this._http.buildRequest('POST', path + endpoint.versionQueryString(), httpHeaders, config.host, config.x509, handleResponse(done));
 

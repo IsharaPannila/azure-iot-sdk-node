@@ -826,6 +826,10 @@ export class Mqtt extends EventEmitter implements DeviceTransport {
             /*Codes_SRS_NODE_DEVICE_MQTT_RECEIVER_16_014: [When a message is received, the receiver shall populate the generated `Message` object `contentEncoding` with the value of the property `$.ce` serialized in the topic, if present.]*/
             msg.contentEncoding = <any>v;
             break;
+        case '$.lbl':
+            /*Codes_SRS_NODE_DEVICE_MQTT_RECEIVER_16_009: [When a message is received, the receiver shall populate the generated `Message` object `label` with the value of the property `$.lbl` serialized in the topic, if present.]*/
+          msg.label = v;
+          break;
         default:
           /*Codes_SRS_NODE_DEVICE_MQTT_RECEIVER_16_007: [When a message is received, the receiver shall populate the generated `Message` object `properties` property with the user properties serialized in the topic.]*/
           msg.properties.add(k, v);
@@ -903,7 +907,8 @@ export class Mqtt extends EventEmitter implements DeviceTransport {
     if (message.contentType) systemProperties['$.ct'] = <string>message.contentType;
     /*Codes_SRS_NODE_DEVICE_MQTT_16_083: [The `sendEvent` method shall serialize the `contentEncoding` property of the message as a key-value pair on the topic with the key `$.ce`.]*/
     if (message.contentEncoding) systemProperties['$.ce'] = <string>message.contentEncoding;
-
+    /*Codes_SRS_NODE_DEVICE_MQTT_16_085: [The `sendEvent` method shall serialize the `label` property of the message as a key-value pair on the topic with the key `$.lbl`.]*/
+    if (message.label) systemProperties['$.lbl'] = <string>message.label;
 
     if (message.expiryTimeUtc) {
       const expiryString = message.expiryTimeUtc instanceof Date ? message.expiryTimeUtc.toISOString() : message.expiryTimeUtc;

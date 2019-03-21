@@ -179,7 +179,20 @@ describe('Mqtt as MqttReceiver', function () {
         });
       });
 
+      /*Tests_SRS_NODE_DEVICE_MQTT_RECEIVER_16_009: [When a message is received, the receiver shall populate the generated `Message` object `label` with the value of the property `$.lbl` serialized in the topic, if present.]*/
+      it('populates Message.label from the topic', function (done) {
+        var fakeLabel = 'fakeLabel';
+        var receiver = new Mqtt(fakeAuthenticationProvider, fakeMqttBase);
+        receiver.connect(function () {
+          receiver.on('message', function (msg) {
+            assert.equal(msg.constructor.name, 'Message');
+            assert.equal(msg.label, fakeLabel);
+            done();
+          });
 
+          fakeMqttBase.emit('message', 'devices/foo/messages/devicebound/%24.lbl=' + fakeLabel);
+        });
+      });
 
 
       it('creates a message even if the properties topic segment is empty', function(done) {

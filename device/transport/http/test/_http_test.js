@@ -221,7 +221,8 @@ describe('Http', function () {
       { messagePropertyName: 'expiryTimeUtc', headerName: 'IoTHub-Expiry', fakeValue: new Date().toISOString() },
       { messagePropertyName: 'ack', headerName: 'IoTHub-Ack', fakeValue: 'full' },
       { messagePropertyName: 'contentType', headerName: 'iothub-contenttype', fakeValue: 'application/json' },
-      { messagePropertyName: 'contentEncoding', headerName: 'iothub-contentencoding', fakeValue: 'utf-8' }
+      { messagePropertyName: 'contentEncoding', headerName: 'iothub-contentencoding', fakeValue: 'utf-8' },
+      { messagePropertyName: 'label', headerName: 'IoTHub-Label', fakeValue: 'fakeLabel' }
     ].forEach(function(testConfig) {
       it('correctly populates the ' + testConfig.headerName + ' header if the message has a ' + testConfig.messagePropertyName + ' property', function() {
         transport._http = {

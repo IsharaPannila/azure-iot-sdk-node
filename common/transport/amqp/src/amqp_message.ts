@@ -36,6 +36,7 @@ export class AmqpMessage {
   message_id?: string;
   correlation_id?: string;
   reply_to?: string;
+  label?: string;
   content_type?: undefined | 'application/json';
   content_encoding?: undefined | 'utf-8' | 'utf-16' | 'utf-32';
   body: any;
@@ -87,6 +88,11 @@ export class AmqpMessage {
     /*Codes_SRS_NODE_IOTHUB_AMQPMSG_16_015: [If the `message` argument has a `contentType` property, the `AmqpMessage` object shall have a property named `content_type` with the same value.]*/
     if (message.contentType) {
       amqpMessage.content_type = message.contentType;
+    }
+
+     /*Codes_SRS_NODE_IOTHUB_AMQPMSG_16_015: [If the `message` argument has a `label` property, the `AmqpMessage` object shall have a property named `label` with the same value.]*/
+     if (message.label) {
+      amqpMessage.label = message.label;
     }
 
     /*Codes_SRS_NODE_IOTHUB_AMQPMSG_05_008: [If needed, the created AmqpMessage object shall have a property of type Object named application_properties.]*/
@@ -187,6 +193,11 @@ export class AmqpMessage {
     /*Codes_SRS_NODE_IOTHUB_AMQPMSG_16_017: [The `toMessage` method shall set the `Message.contentEncoding` property to the `AmqpMessage.content_encoding` value if it is present. ]*/
     if (amqpMessage.content_encoding) {
       msg.contentEncoding = amqpMessage.content_encoding;
+    }
+
+     /*Codes_SRS_NODE_IOTHUB_AMQPMSG_16_005: [The `toMessage` method shall set the `Message.label` property to the `AmqpMessage.label` value if it is present.]*/
+     if (amqpMessage.label) {
+      msg.label = amqpMessage.label;
     }
 
     /*Codes_SRS_NODE_IOTHUB_AMQPMSG_16_007: [The `toMessage` method shall convert the user-defined `AmqpMessage.applicationProperties` to a `Properties` collection stored in `Message.properties`.]*/

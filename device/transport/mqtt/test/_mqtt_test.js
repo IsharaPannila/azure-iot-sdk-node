@@ -314,7 +314,9 @@ describe('Mqtt', function () {
         /*Tests_SRS_NODE_DEVICE_MQTT_16_083: [The `sendEvent` method shall serialize the `contentEncoding` property of the message as a key-value pair on the topic with the key `$.ce`.]*/
         { propName: 'contentEncoding', serializedAs: '%24.ce', fakeValue: 'utf-8' },
         /*Tests_SRS_NODE_DEVICE_MQTT_16_084: [The `sendEvent` method shall serialize the `contentType` property of the message as a key-value pair on the topic with the key `$.ct`.]*/
-        { propName: 'contentType', serializedAs: '%24.ct', fakeValue: 'application/json', fakeSerializedValue: encodeURIComponent('application/json') }
+        { propName: 'contentType', serializedAs: '%24.ct', fakeValue: 'application/json', fakeSerializedValue: encodeURIComponent('application/json') },
+        /*Tests_SRS_NODE_DEVICE_MQTT_16_084: [The `sendEvent` method shall serialize the `contentType` property of the message as a key-value pair on the topic with the key `$.lbl`.]*/
+        { propName: 'label', serializedAs: '%24.lbl', fakeValue: 'fakeLabel' }
       ].forEach(function(testProperty) {
         it('serializes Message.' + testProperty.propName + ' as ' + decodeURIComponent(testProperty.serializedAs) + ' on the topic', function(done) {
           var testMessage = new Message('message');

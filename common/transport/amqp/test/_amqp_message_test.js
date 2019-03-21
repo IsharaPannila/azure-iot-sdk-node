@@ -123,6 +123,14 @@ describe('AmqpMessage', function () {
       assert.equal(amqpMessage.content_type, message.contentType);
     });
 
+     /*Tests_SRS_NODE_IOTHUB_AMQPMSG_16_016: [If the `message` argument has a `label` property, the `AmqpMessage` object shall have a property named `label` with the same value.]*/
+     it('maps message.label to amqpMessage.label', function () {
+      var message = new Message();
+      message.label = 'Label';
+      var amqpMessage = AmqpMessage.fromMessage(message);
+      assert.equal(amqpMessage.lable, message.label);
+    });
+
     /*Tests_SRS_NODE_IOTHUB_AMQPMSG_05_008: [If needed, the created AmqpMessage object shall have a property of type Object named application_properties.]*/
     it('does not create amqpMessage.application_properties object if the are no application properties', function () {
       var amqpMessage = AmqpMessage.fromMessage(new Message());
@@ -278,6 +286,16 @@ describe('AmqpMessage', function () {
 
       var convertedMessage = AmqpMessage.toMessage(testAmqpMessage);
       assert.strictEqual(convertedMessage.contentType, testAmqpMessage.content_type);
+    });
+
+    /*Tests_SRS_NODE_IOTHUB_AMQPMSG_16_018: [The `toMessage` method shall set the `Message.label` property to the `AmqpMessage.label` value if it is present. ]*/
+    it('sets the contentType property', function() {
+      var testAmqpMessage = {
+        label: 'test'
+      };
+
+      var convertedMessage = AmqpMessage.toMessage(testAmqpMessage);
+      assert.strictEqual(convertedMessage.label, testAmqpMessage.label);
     });
 
     /*Tests_SRS_NODE_IOTHUB_AMQPMSG_16_008: [The `toMessage` method shall set the `Message.ack` property to the `AmqpMessage.application_properties['iothub-ack']` value if it is present.]*/

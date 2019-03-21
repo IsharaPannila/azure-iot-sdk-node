@@ -56,6 +56,11 @@ export class Message {
   contentEncoding: undefined | 'utf-8' | 'utf-16' | 'utf-32';
 
   /**
+   * label of the message. use to add filter condition.
+   */
+  label: string;
+
+  /**
    * @private
    */
   transportObj: any;
@@ -80,6 +85,7 @@ export class Message {
     this.userId = '';
     this.contentEncoding = undefined;
     this.contentType = undefined;
+    this.label ='';
   }
 
   /**
